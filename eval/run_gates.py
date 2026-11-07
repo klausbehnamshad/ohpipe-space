@@ -14,7 +14,7 @@ from journal import append, replay, stale_after_change, verify
 from metrics import (dctap_check, krippendorff_alpha_nominal,
                      segmentation_scores, set_scores)
 from mutations import (delete_first_word, fmt_variants, negate_sentence,
-                       outside_swap_greeting)
+                       outside_swap_greeting, swap_speaker_labels)
 
 ROOT = Path(__file__).resolve().parent.parent
 FIX = ROOT / "fixtures"
@@ -196,6 +196,24 @@ def gate3(fx):
     return PASS, f"F1 {fb:.2f}->{fc:.2f} (+{fc - fb:.2f}), Pk {seg['pk']}"
 
 
+def speaker_label_mutant():
+    """Aussen-Mutante Sprecherlabel (Phase 2, additiv).
+
+    Das Label ist nicht Teil der Spanne: der Entwurf aus vertauschten
+    Labels loest alle Claims weiter auf. Erwartung: Anker unberuehrt.
+    """
+    for name in ["dev/de_001.json", "dev/en_001.json"]:
+        fx = load(name)
+        tx = fx["transcript"]["text"]
+        swapped = swap_speaker_labels(fx["transcript"]["words"])
+        draft_sw = candidate({"text": tx, "words": swapped,
+                              "speakers": fx["speakers"]})
+        ok, total = anchored(draft_sw, tx)
+        if len(ok) != total:
+            return FAIL, f"Sprecherlabel-Tausch reisst Anker in {fx['fixture_id']}"
+    return PASS, "Sprecherlabel-Tausch: Anker unberuehrt (de_001, en_001)"
+
+
 def alpha_check():
     pair = load("dev/alpha_pair.json")
     a = krippendorff_alpha_nominal(pair["coder_a"], pair["coder_b"])
@@ -221,6 +239,7 @@ def main():
         results.append((f"gate1:{fx['fixture_id']}",) + gate1(fx))
         results.append((f"gate2:{fx['fixture_id']}",) + gate2(fx, name))
         results.append((f"gate3:{fx['fixture_id']}",) + gate3(fx))
+    results.append(("mutants:outspan_speaker_labels",) + speaker_label_mutant())
     results.append(("harness:alpha",) + alpha_check())
     code = 0
     for name, status, msg in results:

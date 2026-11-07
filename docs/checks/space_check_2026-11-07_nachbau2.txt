@@ -1,0 +1,5 @@
+# bash eval/space_check.sh, Regie-Lauf 2026-11-07 (Nachbau 2), Commit bb6dd3c, ausserhalb der Sandbox, HF_HOME leer, HF_TOKEN leer
+# python3: Python 3.13.9
+Loaded as API: http://127.0.0.1:7861/
+3 Reiter grün, STALE-Demo ok
+exit=0
