@@ -168,7 +168,11 @@ def replay_demo():
 
 with gr.Blocks(title="ohpipe-space: drei Gates") as demo:
     gr.Markdown("# ohpipe-space: drei Gates\n\n" + LEIT)
-    gr.LoginButton()
+    if os.environ.get("SPACE_ID"):
+        gr.LoginButton()
+    else:
+        gr.Markdown("Anmeldung nur auf dem Space (HF-OAuth). "
+                    "Hier gilt die anonyme Grenze.")
     with gr.Tab("Entwurf"):
         gr.Markdown(LEIT)
         fixture_dd = gr.Dropdown(choices=list(FIXTURE_IDS), value="de_001",
