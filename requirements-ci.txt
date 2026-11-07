@@ -1,0 +1,6 @@
+# Nur fuer CI (space_check ohne torch): Pins geprueft auf PyPI am 2026-11-07.
+# itsdangerous braucht gradio 6.31.0 beim OAuth-Import, es steht nicht in
+# dessen Abhaengigkeiten.
+gradio==6.31.0
+gradio_client==2.7.2
+itsdangerous==2.2.0

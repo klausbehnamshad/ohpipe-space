@@ -1,0 +1,8 @@
+# ohpipe-space Phase 2, Pins geprueft auf PyPI am 2026-11-07.
+gradio==6.31.0
+gradio_client==2.7.2
+itsdangerous==2.2.0
+spaces==0.51.3
+torch==2.15.0
+transformers==5.22.2
+accelerate==1.15.0

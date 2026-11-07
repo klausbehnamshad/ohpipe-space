@@ -1,0 +1,118 @@
+{
+ "fixture_id": "de_001",
+ "mode": "fixture",
+ "label": "vorberechnet (Kandidat), Hash fb5997696abd367915cd93caa1576f5488c20f14c8e82cb95b728f0f8aa5a53a",
+ "draft": {
+  "title": "Wie war die Schule damals für Sie im Nachbarort?",
+  "abstract": [
+   "Guten Tag und herzlich willkommen zu unserem Gespräch über das Leben auf dem Dorf.",
+   "Die Schule war streng, aber die Lehrer haben uns viel über Handwerk und Feldarbeit beigebracht."
+  ],
+  "keywords": [
+   "dorf",
+   "guten",
+   "schule",
+   "aufgewachsen",
+   "bauernhof",
+   "begonnen",
+   "beigebracht",
+   "bäcker"
+  ],
+  "sections": [
+   {
+    "start_sent": 0,
+    "end_sent": 3,
+    "title": "Block: guten"
+   },
+   {
+    "start_sent": 3,
+    "end_sent": 6,
+    "title": "Block: schule"
+   }
+  ]
+ },
+ "claims": [
+  {
+   "text": "Wie war die Schule damals für Sie im Nachbarort?",
+   "kind": "title",
+   "status": "belegt",
+   "anchor_hash": "db58d3ffef40beca2426994bb22a38792dc4481e997d0583062d99c2d7db2968",
+   "quote": "Wie war die Schule damals für Sie im Nachbarort?"
+  },
+  {
+   "text": "Guten Tag und herzlich willkommen zu unserem Gespräch über das Leben auf dem Dorf.",
+   "kind": "abstract",
+   "status": "belegt",
+   "anchor_hash": "7068db7dda27415dde7d2281319bceac1c31eb3a82ce302ffc5b8d591eb6f604",
+   "quote": "Guten Tag und herzlich willkommen zu unserem Gespräch über das Leben auf dem Dorf."
+  },
+  {
+   "text": "Die Schule war streng, aber die Lehrer haben uns viel über Handwerk und Feldarbeit beigebracht.",
+   "kind": "abstract",
+   "status": "belegt",
+   "anchor_hash": "58961d596f76b46dc0245e6f4ff045eed759d69dbf05f11af9a66982c856111c",
+   "quote": "Die Schule war streng, aber die Lehrer haben uns viel über Handwerk und Feldarbeit beigebracht."
+  },
+  {
+   "text": "dorf",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "9edc4eb7efb1ac09ff191df9aa10b0fb74e2f4b290a2c7bec43c6aec7d1565c7",
+   "quote": "dorf"
+  },
+  {
+   "text": "guten",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "5b93266f1ec1ddaaa525c59583ef12d81d23d9ff3d01dbf5cb78935b7bab2516",
+   "quote": "guten"
+  },
+  {
+   "text": "schule",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "217052ebd2fbb12ad200cc3b32665e212f145683d639c948260b7cd63df79582",
+   "quote": "schule"
+  },
+  {
+   "text": "aufgewachsen",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "98ed0123d5ca72d370e1de3554ccfdf3d9951a7ca0f16f29a490af0383cb825a",
+   "quote": "aufgewachsen"
+  },
+  {
+   "text": "bauernhof",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "bc725e8e671055772aa446940b4b3af020811145292f043f6ea11c2ebc7e5374",
+   "quote": "bauernhof"
+  },
+  {
+   "text": "begonnen",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "df5c0d372c65dba4005016ffee51ab681d47c8280be4aa1afb33d6739306e84a",
+   "quote": "begonnen"
+  },
+  {
+   "text": "beigebracht",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "1a3502dab35b549169eb329c1fc1bf09e8dc69846582829f775e30f62f9844df",
+   "quote": "beigebracht"
+  },
+  {
+   "text": "bäcker",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "c3d53e2b19a9016324bd68b2d8ce55d0daae066dce77420fe02773f575e60c28",
+   "quote": "bäcker"
+  }
+ ],
+ "model": {
+  "kind": "candidate-v1",
+  "note": "Regelbaseline aus eval/adapters.py, kein Modell"
+ },
+ "bundle_hash": "caed1f6f33abef9009a0775d1a9948dc22c72a3cb6cd6f0a983fd943a9dc4451"
+}

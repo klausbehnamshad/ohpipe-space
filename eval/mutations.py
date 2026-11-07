@@ -32,3 +32,21 @@ def negate_sentence(text: str, idx: int) -> str:
 def outside_swap_greeting(text: str) -> str:
     return text.replace("Guten Tag.", "Guten Tag NICHT.", 1).replace(
         "Good morning.", "Good morning NOT.", 1)
+
+
+def swap_speaker_labels(words):
+    """Aussen-Mutante: vertauscht SPK_01 und SPK_02 in den Wortlabels.
+
+    Das Sprecherlabel ist nicht Teil der Spanne (Regie-Entscheidung Phase 2):
+    der kanonische Text bleibt unveraendert, alle Anker bleiben gueltig.
+    Erwartung: Anker unberuehrt, Review-Pflicht.
+    """
+    out = []
+    for w in words:
+        w2 = dict(w)
+        if w2.get("speaker") == "SPK_01":
+            w2["speaker"] = "SPK_02"
+        elif w2.get("speaker") == "SPK_02":
+            w2["speaker"] = "SPK_01"
+        out.append(w2)
+    return out

@@ -1,0 +1,118 @@
+{
+ "fixture_id": "en_001",
+ "mode": "fixture",
+ "label": "vorberechnet (Kandidat), Hash 4f8c4cf68553e0d5f3ea2ee310cf9d7c6a9d18a039f7bf2964834a95c0f1695b",
+ "draft": {
+  "title": "How did you learn the fishing trade back then?",
+  "abstract": [
+   "The skippers taught us knots, tides and engine repair through long winters.",
+   "Good morning and welcome to our talk about life at the harbour."
+  ],
+  "keywords": [
+   "good",
+   "morning",
+   "about",
+   "back",
+   "became",
+   "docks",
+   "engine",
+   "evening"
+  ],
+  "sections": [
+   {
+    "start_sent": 0,
+    "end_sent": 3,
+    "title": "Block: morning"
+   },
+   {
+    "start_sent": 3,
+    "end_sent": 6,
+    "title": "Block: worked"
+   }
+  ]
+ },
+ "claims": [
+  {
+   "text": "How did you learn the fishing trade back then?",
+   "kind": "title",
+   "status": "belegt",
+   "anchor_hash": "b0c150ad322a17bc42268902b65dad393bc1276d4f7d087ee96a7b2366847d1b",
+   "quote": "How did you learn the fishing trade back then?"
+  },
+  {
+   "text": "The skippers taught us knots, tides and engine repair through long winters.",
+   "kind": "abstract",
+   "status": "belegt",
+   "anchor_hash": "48963ba04f2d92e4d1fe3c9e9bb0b4e28f78c9f3478c6d8908bef5718ee27255",
+   "quote": "The skippers taught us knots, tides and engine repair through long winters."
+  },
+  {
+   "text": "Good morning and welcome to our talk about life at the harbour.",
+   "kind": "abstract",
+   "status": "belegt",
+   "anchor_hash": "0bd5dad4f80bafea2c152c50e330859f37f709ba87bbed01ce7fd85071a378fd",
+   "quote": "Good morning and welcome to our talk about life at the harbour."
+  },
+  {
+   "text": "good",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "770e607624d689265ca6c44884d0807d9b054d23c473c106c72be9de08b7376c",
+   "quote": "good"
+  },
+  {
+   "text": "morning",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "c23b31a0179b550f8a18fb06bc52a26e32333540369073d646da5c84a4dc341f",
+   "quote": "morning"
+  },
+  {
+   "text": "about",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "a4262e1c9bcbc1721eb3fe13558154460a2b2a2d307daa32532478526ce6ccb1",
+   "quote": "about"
+  },
+  {
+   "text": "back",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "3c482346f375027677fa8a0d6830a32714d4f13f9e94c2d9e215e0ac205ad4e5",
+   "quote": "back"
+  },
+  {
+   "text": "became",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "3f5c81b45da7f1f27fbcfc7cd9563b04b8449463aec53ddd2616b2161bd68c54",
+   "quote": "became"
+  },
+  {
+   "text": "docks",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "861aa5f15b1233baeeeaaa2d508b974efecabfae6750df2e80a808b9cb8fc7ff",
+   "quote": "docks"
+  },
+  {
+   "text": "engine",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "ed9f6f25068608efd412958da4dfc19328ca3511251fa6d5f9c42baf230e32f8",
+   "quote": "engine"
+  },
+  {
+   "text": "evening",
+   "kind": "keyword",
+   "status": "belegt",
+   "anchor_hash": "e5bd0801d10e5965354604c20443ddf47fdfc375115151277a525467ad4816a3",
+   "quote": "evening"
+  }
+ ],
+ "model": {
+  "kind": "candidate-v1",
+  "note": "Regelbaseline aus eval/adapters.py, kein Modell"
+ },
+ "bundle_hash": "4f87c514770461f40433b4efeafb30517c8566a9c612be77f485ad34979823b5"
+}
