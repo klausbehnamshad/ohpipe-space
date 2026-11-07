@@ -191,6 +191,16 @@ def anchor_raw_draft(raw: dict, transcript: str, n_sent: int) -> dict:
     return {"claims": claims, "sections": sections}
 
 
+def draft_part_of(raw: dict, sections: list) -> dict:
+    """Entwurfs-Teil des Bundles; abstrakte Felder robust normiert."""
+    return {"title": str(raw.get("title", "")),
+            "abstract": [str(s)
+                         for s in _as_list(raw.get("abstract", []))[:8]],
+            "keywords": [str(k)
+                         for k in _as_list(raw.get("keywords", []))[:12]],
+            "sections": sections}
+
+
 def _sentences(text: str) -> list:
     out, buf = [], ""
     for ch in text:
@@ -236,10 +246,7 @@ def _model_draft(fixture_id: str, mode: str) -> dict:
         model_id, revision = MODEL_ID_CPU, MODEL_REV_CPU
     raw = parse_model_json(answer)
     anchored = anchor_raw_draft(raw, text, len(sents))
-    draft_part = {"title": str(raw.get("title", "")),
-                  "abstract": [str(s) for s in list(raw.get("abstract", []))],
-                  "keywords": [str(k) for k in list(raw.get("keywords", []))],
-                  "sections": anchored["sections"]}
+    draft_part = draft_part_of(raw, anchored["sections"])
     draft_hash = _bundle_hash(draft_part)
     body = {"fixture_id": fixture_id, "mode": mode,
             "label": f"Modell ({model_id}), Hash {draft_hash}",

@@ -101,5 +101,27 @@ class ClaimEntryTest(unittest.TestCase):
             self.assertEqual(claim["status"], "unbelegt")
 
 
+class DraftPartTest(unittest.TestCase):
+    def test_string_wird_liste(self):
+        from draft import anchor_raw_draft, draft_part_of
+        raw = {"title": "Titel", "abstract": "[0-4]", "keywords": "[5]",
+               "sections": [{"start_sent": 0, "end_sent": 1,
+                             "title": "x"}]}
+        anchored = anchor_raw_draft(raw, "Titel.", 1)
+        part = draft_part_of(raw, anchored["sections"])
+        self.assertEqual(part["abstract"], ["[0-4]"])
+        self.assertEqual(part["keywords"], ["[5]"])
+
+    def test_null_wird_leer(self):
+        from draft import anchor_raw_draft, draft_part_of
+        raw = {"title": "Titel", "abstract": None, "keywords": None,
+               "sections": []}
+        anchored = anchor_raw_draft(raw, "Titel.", 1)
+        part = draft_part_of(raw, anchored["sections"])
+        self.assertEqual(part["abstract"], [])
+        self.assertEqual(part["keywords"], [])
+        self.assertEqual(part["title"], "Titel")
+
+
 if __name__ == "__main__":
     unittest.main()

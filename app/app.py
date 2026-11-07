@@ -80,9 +80,10 @@ def entwurf(fixture_id: str, request: gr.Request,
     label = bundle["label"]
     if hinweis:
         label = f"{label} | {hinweis}"
-    meta = dict(bundle.get("metadata", {}))
-    meta["darstellung"] = "consent_status und accessRights nur im Review"
-    return rows, bundle, f"{label}\n\n{LEIT}"
+    meta = {"consent_status": "", "accessRights": "",
+            "status": "vorgeschlagen",
+            "darstellung": "consent_status und accessRights nur im Review"}
+    return rows, bundle, meta, f"{label}\n\n{LEIT}"
 
 
 def anchor_gate(fixture_id: str):
@@ -175,9 +176,10 @@ with gr.Blocks(title="ohpipe-space: drei Gates") as demo:
         go_btn = gr.Button("Entwurf erzeugen")
         claims_df = gr.Dataframe(headers=ENTWURF_HEADER, label="Claims")
         bundle_json = gr.JSON(label="Bundle")
+        meta_json = gr.JSON(label="Metadaten (nur im Review)")
         label_md = gr.Markdown()
         go_btn.click(fn=entwurf, inputs=[fixture_dd],
-                     outputs=[claims_df, bundle_json, label_md],
+                     outputs=[claims_df, bundle_json, meta_json, label_md],
                      api_name="draft")
         gr.Markdown(PRUEF)
     with gr.Tab("Anker-Gate"):
@@ -201,4 +203,4 @@ with gr.Blocks(title="ohpipe-space: drei Gates") as demo:
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", "7860"))
     demo.queue(max_size=5, default_concurrency_limit=1)
-    demo.launch(server_name="127.0.0.1", server_port=port, share=False)
+    demo.launch(server_name=None, server_port=port, share=False)

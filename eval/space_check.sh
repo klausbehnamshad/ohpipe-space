@@ -50,7 +50,7 @@ def rows_of(value, headers):
 
 
 # Reiter 1: Entwurf
-table, bundle, label = c.predict("de_001", api_name="/draft")
+table, bundle, meta, label = c.predict("de_001", api_name="/draft")
 heads, rows = rows_of(table, ["Claim", "Art", "Status", "Anker-Hash",
                               "Zitatzeuge"])
 try:
@@ -64,6 +64,8 @@ if not claims or any(x.get("status") != "belegt" for x in claims):
     fails.append("Entwurf enthaelt Claim ohne Status belegt")
 if len(rows) != len(claims) or any(r[sidx] != "belegt" for r in rows):
     fails.append("Tabelle zeigt nicht alle Claims als belegt")
+if meta.get("consent_status") != "" or meta.get("accessRights") != "":
+    fails.append("Review-Feld befüllt")
 
 # Reiter 2: Anker-Gate
 gtable, summary = c.predict("de_001", api_name="/anchor_gate")
