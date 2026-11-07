@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+type: software
+title: ohpipe-space
+abstract: >-
+  Evidence-bound drafting with human review for oral-history material:
+  anchored proposals, replayable provenance, gated metadata.
+  Synthetic fixtures only; no real interview data.
+authors:
+  - given-names: Klaus
+    family-names: Behnam Shad
+    orcid: "https://orcid.org/0000-0002-3601-9024"
+repository-code: "https://github.com/klausbehnamshad/ohpipe-space"
+license: MIT
+version: 0.1.0
+date-released: "2026-11-07"
+keywords:
+  - oral history
+  - provenance
+  - digital humanities
+  - reproducible research
+  - human-in-the-loop

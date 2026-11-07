@@ -1,0 +1,20 @@
+{
+ "date": "2026-11-07",
+ "fixture_hashes": {
+  "dev/alpha_pair.json": "fbe1e4ab4c6fe5fdaad4c93246ee85e49bdfa48002b77bbd8281a150e0a37507",
+  "dev/de_001.json": "ecbd4056881c2bf545632484e7f6d352561e2a361f6a2809c378a080faeea228",
+  "dev/en_001.json": "9b68f6cb34e50323974c56f536c8003c54453801f3d72efd866147f33854c452"
+ },
+ "spec_hash": "dc88f8f8c0c8ffe20b44cddadb3526e056959d7a5efccf08535e4b4e571095c3",
+ "status": "proposed",
+ "thresholds": {
+  "alpha_gate": 0.8,
+  "alpha_preliminary": [
+   0.667,
+   0.8
+  ],
+  "coverage_floor": 0.8,
+  "coverage_floor_status": "proposed",
+  "f1_gap": 0.1
+ }
+}

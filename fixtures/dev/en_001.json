@@ -1,0 +1,483 @@
+{
+ "fixture_id": "en_001",
+ "language": "en",
+ "audio_manifest": {
+  "status": "pending-phase-2",
+  "note": "Audio as release asset or LFS; repo holds only hashes and manifest.",
+  "duration_s": 30.0
+ },
+ "transcript": {
+  "text": "Good morning and welcome to our talk about life at the harbour. Good morning. I grew up near the docks, where my father mended nets every evening. How did you learn the fishing trade back then? The skippers taught us knots, tides and engine repair through long winters. Yes, I became a netmaker and later worked on the trawlers offshore.",
+  "words": [
+   {
+    "t0": 0.0,
+    "t1": 0.4,
+    "token": "Good",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 0.5,
+    "t1": 0.9,
+    "token": "morning",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 1.0,
+    "t1": 1.4,
+    "token": "and",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 1.5,
+    "t1": 1.9,
+    "token": "welcome",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 2.0,
+    "t1": 2.4,
+    "token": "to",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 2.5,
+    "t1": 2.9,
+    "token": "our",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 3.0,
+    "t1": 3.4,
+    "token": "talk",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 3.5,
+    "t1": 3.9,
+    "token": "about",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 4.0,
+    "t1": 4.4,
+    "token": "life",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 4.5,
+    "t1": 4.9,
+    "token": "at",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 5.0,
+    "t1": 5.4,
+    "token": "the",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 5.5,
+    "t1": 5.9,
+    "token": "harbour.",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 6.0,
+    "t1": 6.4,
+    "token": "Good",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 6.5,
+    "t1": 6.9,
+    "token": "morning.",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 7.0,
+    "t1": 7.4,
+    "token": "I",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 7.5,
+    "t1": 7.9,
+    "token": "grew",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 8.0,
+    "t1": 8.4,
+    "token": "up",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 8.5,
+    "t1": 8.9,
+    "token": "near",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 9.0,
+    "t1": 9.4,
+    "token": "the",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 9.5,
+    "t1": 9.9,
+    "token": "docks,",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 10.0,
+    "t1": 10.4,
+    "token": "where",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 10.5,
+    "t1": 10.9,
+    "token": "my",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 11.0,
+    "t1": 11.4,
+    "token": "father",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 11.5,
+    "t1": 11.9,
+    "token": "mended",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 12.0,
+    "t1": 12.4,
+    "token": "nets",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 12.5,
+    "t1": 12.9,
+    "token": "every",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 13.0,
+    "t1": 13.4,
+    "token": "evening.",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 13.5,
+    "t1": 13.9,
+    "token": "How",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 14.0,
+    "t1": 14.4,
+    "token": "did",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 14.5,
+    "t1": 14.9,
+    "token": "you",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 15.0,
+    "t1": 15.4,
+    "token": "learn",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 15.5,
+    "t1": 15.9,
+    "token": "the",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 16.0,
+    "t1": 16.4,
+    "token": "fishing",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 16.5,
+    "t1": 16.9,
+    "token": "trade",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 17.0,
+    "t1": 17.4,
+    "token": "back",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 17.5,
+    "t1": 17.9,
+    "token": "then?",
+    "speaker": "SPK_02",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 18.0,
+    "t1": 18.4,
+    "token": "The",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 18.5,
+    "t1": 18.9,
+    "token": "skippers",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 19.0,
+    "t1": 19.4,
+    "token": "taught",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 19.5,
+    "t1": 19.9,
+    "token": "us",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 20.0,
+    "t1": 20.4,
+    "token": "knots,",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 20.5,
+    "t1": 20.9,
+    "token": "tides",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 21.0,
+    "t1": 21.4,
+    "token": "and",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 21.5,
+    "t1": 21.9,
+    "token": "engine",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 22.0,
+    "t1": 22.4,
+    "token": "repair",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 22.5,
+    "t1": 22.9,
+    "token": "through",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 23.0,
+    "t1": 23.4,
+    "token": "long",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 23.5,
+    "t1": 23.9,
+    "token": "winters.",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 24.0,
+    "t1": 24.4,
+    "token": "Yes,",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 24.5,
+    "t1": 24.9,
+    "token": "I",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 25.0,
+    "t1": 25.4,
+    "token": "became",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 25.5,
+    "t1": 25.9,
+    "token": "a",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 26.0,
+    "t1": 26.4,
+    "token": "netmaker",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 26.5,
+    "t1": 26.9,
+    "token": "and",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 27.0,
+    "t1": 27.4,
+    "token": "later",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 27.5,
+    "t1": 27.9,
+    "token": "worked",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 28.0,
+    "t1": 28.4,
+    "token": "on",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 28.5,
+    "t1": 28.9,
+    "token": "the",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 29.0,
+    "t1": 29.4,
+    "token": "trawlers",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   },
+   {
+    "t0": 29.5,
+    "t1": 29.9,
+    "token": "offshore.",
+    "speaker": "SPK_01",
+    "time_source": "fixture"
+   }
+  ]
+ },
+ "speakers": {
+  "SPK_01": {
+   "role": "interviewt"
+  },
+  "SPK_02": {
+   "role": "fragend"
+  }
+ },
+ "gold": {
+  "draft_fields": {
+   "record_id": "2026-11-07_SYN_0002",
+   "interview_date": "2026-11-07",
+   "interviewer": "Synthetic interviewer",
+   "title": "Grown up by the harbour: learning the fishing trade",
+   "interviewee_display": "Synthetic narrator B",
+   "language": "eng",
+   "languages": [
+    "eng"
+   ],
+   "spatial": "Synthetic harbour town",
+   "keywords": [
+    "harbour",
+    "docks",
+    "fishing",
+    "knots",
+    "netmaker",
+    "trawlers"
+   ],
+   "abstract": "Account of childhood near the docks, learning knots and tides from skippers, and later work as a netmaker on offshore trawlers.",
+   "timecoded_segments": [
+    {
+     "start": "00:00:00",
+     "end": "00:00:14",
+     "label": "Getting to know"
+    },
+    {
+     "start": "00:00:14",
+     "end": "00:00:30",
+     "label": "Trade and work"
+    }
+   ],
+   "related_materials": [],
+   "governance_ref": "SYNTH-FIXTURE-002"
+  },
+  "review": {
+   "consent_status": "research-only",
+   "accessRights": "restricted"
+  }
+ }
+}
