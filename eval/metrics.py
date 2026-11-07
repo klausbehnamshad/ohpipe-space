@@ -3,12 +3,25 @@ from __future__ import annotations
 
 import re
 from collections import Counter, defaultdict
+from pathlib import Path
 
-REQUIRED = ["record_id", "interview_date", "interviewer", "consent_status",
-            "accessRights", "title", "language"]
-DATE_RE = re.compile(r"^[0-9]{4}-[0-9]{2}-[0-9]{2}$")
-LANG_RE = re.compile(r"^[a-z]{3}$")
-ACCESS_ENUM = {"open", "restricted", "closed"}
+TAP_CORE = Path(__file__).resolve().parent / "vendor" / "imm_core_tap_core.csv"
+
+
+def _tap_rules():
+    """Pflichtfelder, Muster und Enums aus imm-core 1.2.0 (tap/core.csv, CC-BY-4.0)."""
+    import csv
+    required, patterns, enums = [], {}, {}
+    with open(TAP_CORE, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            name = row["propertyID"]
+            if row["mandatory"].strip().upper() == "TRUE":
+                required.append(name)
+            if row["pattern"].strip():
+                patterns[name] = re.compile(row["pattern"].strip())
+            if row["enum"].strip():
+                enums[name] = set(row["enum"].strip().split("|"))
+    return required, patterns, enums
 
 
 def set_scores(gold, pred):
@@ -62,14 +75,22 @@ def segmentation_scores(gold_sections, hyp_sections, n_sent):
 
 
 def dctap_check(record):
-    missing = [f for f in REQUIRED if not record.get(f)]
+    required, patterns, enums = _tap_rules()
+    missing = [f for f in required if not record.get(f)]
     errors = []
-    if record.get("interview_date") and not DATE_RE.match(record["interview_date"]):
-        errors.append("interview_date")
-    if record.get("language") and not LANG_RE.match(record["language"]):
-        errors.append("language")
-    if record.get("accessRights") and record["accessRights"] not in ACCESS_ENUM:
-        errors.append("accessRights")
+    for name, rx in patterns.items():
+        vals = record.get(name)
+        if isinstance(vals, str):
+            vals = [vals]
+        if isinstance(vals, list) and any(
+                not isinstance(v, str) or not rx.match(v) for v in vals):
+            errors.append(name)
+    for name, allowed in enums.items():
+        vals = record.get(name)
+        if isinstance(vals, str):
+            vals = [vals]
+        if isinstance(vals, list) and any(v not in allowed for v in vals):
+            errors.append(name)
     return {"missing": missing, "errors": errors,
             "valid": not missing and not errors}
 

@@ -5,10 +5,12 @@
 
 ## Leiter
 
-trivial (Baseline: erster Satz, erste Wörter, gleiche Drittel) <
-Kandidat (TF-Regeln, Sprecherblöcke) < Modell (Phase 2, Qwen-Entwurf).
-Die +0,10-F1-Schwelle gilt in Phase 1 Kandidat-gegen-trivial,
-in Phase 2 Modell-gegen-Kandidat.
+trivial (Baseline: erster Satz, erste fünf Inhaltswörter, gleiche Drittel,
+keine Statistik) < Kandidat (TF-Regeln, Sprecherblöcke) <
+Modell (Phase 2, Qwen-Entwurf). Der Phase-1-Vergleich Kandidat-gegen-trivial
+ist absichtlich schwach (Baseline trifft auf beiden Dev-Fixtures kein
+Gold-Keyword, F1 0,00); der tragende Vergleich Modell-gegen-Kandidat kommt in
+Phase 2. Die +0,10-Schwelle gilt für beide Stufen.
 
 ## Festlegungen mit Objektbezug
 
@@ -19,4 +21,6 @@ in Phase 2 Modell-gegen-Kandidat.
   STA-Profil). Inhaltsänderungen brechen den Hash.
 - Der α-Harness prüft nominales Krippendorff-α auf einem festen
   Testpaar (0,6429); Gold-Gate α ≥ 0,80 läuft auf der Testmenge.
-- `spec_freeze.py` schreibt `prereg.json` (Schwellen, Hashes, Datum).
+- `spec_freeze.py` prüft `prereg.json` (Standard; Schreiben nur mit `--write`).
+- Pflichtfelder, Muster und Enums stammen aus `vendor/imm_core_tap_core.csv`
+  (tap/core.csv aus imm-core 1.2.0, CC-BY-4.0, © Klaus Behnam Shad).

@@ -17,7 +17,6 @@ def delete_first_word(text: str, word: str) -> str:
 
 
 def negate_sentence(text: str, idx: int) -> str:
-    sents, buf, out = [], "", ""
     parts, cur = [], ""
     for ch in text:
         cur += ch

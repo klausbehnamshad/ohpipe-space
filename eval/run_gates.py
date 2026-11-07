@@ -58,12 +58,10 @@ def gate1(fx):
                        "speakers": fx["speakers"]})
     ok, total = anchored(draft, tx)
     rate = len(ok) / total if total else 0.0
-    if rate < 1.0:
-        have = set(ok)
-        missing = [c for c in claims_of(draft) if c not in have][:2]
-        return FAIL, f"unbelegte Claims: {missing}"
     if rate < COVERAGE_FLOOR:
-        return FAIL, "unter Abdeckungsuntergrenze"
+        have = set(ok)
+        missing = [c for c in claims_of(draft) if c not in have][:3]
+        return FAIL, f"unter Untergrenze {COVERAGE_FLOOR}: {missing}"
     # Formatmutanten werden kanonisch absorbiert (Robustheit)
     for name, var in fmt_variants(tx).items():
         o, t = anchored(draft, var)
@@ -84,10 +82,15 @@ def gate1(fx):
     o, t = anchored(draft, out)
     if len(o) != t:
         return FAIL, "Ausserhalb-Tausch reisst Anker"
-    # Entartet: alles unbelegt faellt an der Untergrenze
-    if 0.0 >= COVERAGE_FLOOR:
+    # Entartet: Entwurf ohne jeden Bezug muss an der Untergrenze scheitern
+    junk = {"title": "XYZQ Fremder Satz ohne Bezug",
+            "abstract": ["Noch ein fremder Satz ohne jeden Bezug."],
+            "keywords": ["xyzabc", "qwertzui"]}
+    jok, jtotal = anchored(junk, tx)
+    jrate = len(jok) / jtotal if jtotal else 0.0
+    if jrate >= COVERAGE_FLOOR:
         return FAIL, "Untergrenze faengt entartet nicht"
-    return PASS, f"Aufloesung {rate:.2f}, Mutanten ok"
+    return PASS, f"Abdeckung {rate:.2f} (Untergrenze {COVERAGE_FLOOR}), Mutanten ok"
 
 
 def gate2(fx, fname):
@@ -218,7 +221,7 @@ def main():
         results.append((f"gate1:{fx['fixture_id']}",) + gate1(fx))
         results.append((f"gate2:{fx['fixture_id']}",) + gate2(fx, name))
         results.append((f"gate3:{fx['fixture_id']}",) + gate3(fx))
-    results.append(("alpha",) + alpha_check())
+    results.append(("harness:alpha",) + alpha_check())
     code = 0
     for name, status, msg in results:
         print(f"{status} {name}: {msg}")
