@@ -1,0 +1,44 @@
+name: deploy-check
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - README.md
+      - requirements.txt
+      - requirements-ci.txt
+      - app/**
+      - eval/**
+      - fixtures/**
+      - .github/workflows/deploy-check.yml
+
+jobs:
+  linux-full-pins:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12.12"
+      - run: python --version && uname -m
+      - run: set -o pipefail; python -m pip install -r requirements.txt 2>&1 | tee "$RUNNER_TEMP/install.log"
+        shell: bash
+      - run: python -m pip check
+      - run: python -m pip freeze > "$RUNNER_TEMP/pip-freeze.txt"
+      - run: OHPIPE_SPACE_MODE=fixture python -B eval/run_gates.py --split dev
+      - run: python -B eval/spec_freeze.py
+      - run: OHPIPE_SPACE_MODE=fixture python -B -m unittest discover -s app -t app -p 'test_*.py'
+      - run: python -B app/check_precomputed.py
+      - run: |
+          mkdir -p "$RUNNER_TEMP/hf-leer"
+          HF_HOME="$RUNNER_TEMP/hf-leer" HF_HUB_OFFLINE=1 SYSTEM=spaces SPACE_ID=klausbehnamshad/ohpipe-space OHPIPE_SPACE_MODE=fixture bash eval/space_check.sh 2>&1 | tee "$RUNNER_TEMP/space_check.log"
+          test -z "$(ls -A "$RUNNER_TEMP/hf-leer" 2>/dev/null)"
+        shell: bash
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: deploy-check-3.12.12
+          path: |
+            ${{ runner.temp }}/install.log
+            ${{ runner.temp }}/pip-freeze.txt
+            ${{ runner.temp }}/space_check.log

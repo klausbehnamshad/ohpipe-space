@@ -19,4 +19,6 @@ jobs:
       - run: python eval/run_gates.py --split dev
       - run: python eval/spec_freeze.py
       - run: pip install -r requirements-ci.txt
+      - run: OHPIPE_SPACE_MODE=fixture python -B -m unittest discover -s app -t app -p 'test_*.py'
+      - run: python -B app/check_precomputed.py
       - run: bash eval/space_check.sh

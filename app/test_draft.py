@@ -123,5 +123,86 @@ class DraftPartTest(unittest.TestCase):
         self.assertEqual(part["title"], "Titel")
 
 
+class PrecomputedHashTest(unittest.TestCase):
+    def _read_precomputed(self, fid):
+        import json
+        pre = Path(__file__).resolve().parent / "precomputed"
+        return json.loads((pre / f"{fid}.json").read_text(encoding="utf-8"))
+
+    def test_ausgelieferter_hash_stimmt(self):
+        import json
+        import draft
+        for fid in ("de_001", "en_001"):
+            out = draft.draft(fid, "fixture")
+            rest = {k: v for k, v in out.items() if k != "bundle_hash"}
+            body = json.dumps(rest, sort_keys=True, separators=(",", ":"),
+                              ensure_ascii=False).encode("utf-8")
+            import hashlib
+            self.assertEqual(out["bundle_hash"],
+                             hashlib.sha256(body).hexdigest())
+
+    def _manipulierte_kopie(self, tmpdir):
+        import json
+        src = self._read_precomputed("de_001")
+        src["claims"][0]["text"] = src["claims"][0]["text"] + " X"
+        tmp = Path(tmpdir)
+        (tmp / "de_001.json").write_text(json.dumps(src),
+                                         encoding="utf-8")
+        (tmp / "en_001.json").write_text(
+            (Path(__file__).resolve().parent / "precomputed"
+             / "en_001.json").read_text(encoding="utf-8"),
+            encoding="utf-8")
+        return src
+
+    def test_manipuliert_scheitert_load(self):
+        import tempfile
+        import draft
+        with tempfile.TemporaryDirectory() as tmp:
+            self._manipulierte_kopie(tmp)
+            with self.assertRaises(draft.PrecomputedHashError):
+                draft.load_precomputed("de_001",
+                                       root=Path(tmp))
+
+    def test_manipuliert_scheitert_draft_mit_patch(self):
+        import json
+        import tempfile
+        import draft
+        with tempfile.TemporaryDirectory() as tmp:
+            kopie = self._manipulierte_kopie(tmp)
+            erwartet = {k: v for k, v in kopie.items()
+                        if k != "bundle_hash"}
+            aufrufe = []
+            original = draft._bundle_hash
+
+            def wrapper(obj):
+                aufrufe.append(obj)
+                return original(obj)
+
+            altes_pre = draft.PRE
+            draft.PRE = Path(tmp)
+            draft._bundle_hash = wrapper
+            try:
+                with self.assertRaises(draft.PrecomputedHashError):
+                    draft.draft("de_001", "fixture")
+            finally:
+                draft.PRE = altes_pre
+                draft._bundle_hash = original
+            self.assertEqual(len(aufrufe), 1)
+            self.assertEqual(aufrufe[0], erwartet)
+
+    def test_ohne_hash_scheitert(self):
+        import json
+        import tempfile
+        import draft
+        with tempfile.TemporaryDirectory() as tmp:
+            src = self._read_precomputed("de_001")
+            src.pop("bundle_hash", None)
+            tmp = Path(tmp)
+            (tmp / "de_001.json").write_text(json.dumps(src),
+                                            encoding="utf-8")
+            with self.assertRaises(draft.PrecomputedHashError):
+                draft.load_precomputed("de_001", root=tmp)
+
+
 if __name__ == "__main__":
     unittest.main()

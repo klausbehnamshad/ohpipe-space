@@ -233,6 +233,27 @@ def _bundle_hash(body: dict) -> str:
                    ensure_ascii=False).encode("utf-8")).hexdigest()
 
 
+class PrecomputedHashError(ValueError):
+    """Gespeicherter bundle_hash eines Precomputed-Fixtures stimmt nicht."""
+
+
+def load_precomputed(fixture_id: str, root: Path | None = None) -> dict:
+    """Laedt ein vorberechnetes Fixture und prueft den gespeicherten Hash.
+
+    Die Pruefung laeuft vor jeder Aenderung am Objekt. Rueckgabe ist das
+    Objekt ohne bundle_hash.
+    """
+    base = PRE if root is None else root
+    body = json.loads((base / f"{fixture_id}.json").read_text(
+        encoding="utf-8"))
+    stored = body.get("bundle_hash")
+    rest = {k: v for k, v in body.items() if k != "bundle_hash"}
+    if stored is None or stored != _bundle_hash(rest):
+        raise PrecomputedHashError(
+            f"gespeicherter Hash stimmt nicht: {fixture_id}")
+    return rest
+
+
 def _model_draft(fixture_id: str, mode: str) -> dict:
     fx = json.loads((FIX / "dev" / f"{fixture_id}.json").read_text())
     text = fx["transcript"]["text"]
@@ -249,7 +270,7 @@ def _model_draft(fixture_id: str, mode: str) -> dict:
     draft_part = draft_part_of(raw, anchored["sections"])
     draft_hash = _bundle_hash(draft_part)
     body = {"fixture_id": fixture_id, "mode": mode,
-            "label": f"Modell ({model_id}), Hash {draft_hash}",
+            "label": f"Modell ({model_id}), Entwurfs-Hash {draft_hash}",
             "draft": draft_part, "claims": anchored["claims"],
             "metadata": {"consent_status": "", "accessRights": "",
                          "note": "nur im Review"},
@@ -270,11 +291,14 @@ def draft(fixture_id: str, mode: str | None = None) -> dict:
     if fixture_id not in FIXTURE_IDS:
         raise ValueError(f"unbekanntes Fixture: {fixture_id}")
     if use == "fixture":
-        body = json.loads((PRE / f"{fixture_id}.json").read_text())
-        body = dict(body)
+        body = load_precomputed(fixture_id)
         body["mode"] = "fixture"
         body.setdefault("metadata", {"consent_status": "", "accessRights": "",
                                      "note": "nur im Review"})
+        body["label"] = (f"vorberechnet (Kandidat), Entwurfs-Hash "
+                         f"{_bundle_hash(body['draft'])}")
+        body["bundle_hash"] = _bundle_hash(
+            {k: v for k, v in body.items() if k != "bundle_hash"})
         return body
     if use in ("zerogpu", "cpu"):
         return _model_draft(fixture_id, use)

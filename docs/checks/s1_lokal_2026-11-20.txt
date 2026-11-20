@@ -1,0 +1,117 @@
+S1 Fixture-Betrieb, lokale Abnahme Teil A, Nachbau 1 (Bau)
+Datum UTC: 2026-11-20T16:53:34Z
+Basis-Commit: d5bca36176cadf6bded5d4876aef13c9951e0d35
+Branch: s1-fixture
+uname -m: arm64
+Python: 3.12.12 (<Venv>)
+R=<Repo>
+V=<Venv>
+
+--- A1 ---
+Befehl: $V/bin/python --version
+Ausgabe:
+Python 3.12.12
+Exit: 0
+
+--- A2 ---
+Befehl: grep -n -E '^(python_version|sdk_version|hf_oauth):' $R/README.md; grep -n '^gradio==' $R/requirements.txt
+Ausgabe:
+7:sdk_version: 6.31.0
+9:python_version: "3.12.12"
+2:gradio==6.31.0
+Keine hf_oauth-Zeile.
+Exit: 0
+
+--- A3 ---
+Befehl: OHPIPE_SPACE_MODE=fixture $V/bin/python -B $R/eval/run_gates.py --split dev
+Ausgabe:
+PASS manifest: manifest ok
+PASS gate1:de_001: Abdeckung 1.00 (Untergrenze 0.8), Mutanten ok
+PASS gate2:de_001: Replay 3e8a12aeb595…, STALE P=R=1.0
+PASS gate3:de_001: F1 0.00->0.43 (+0.43), Pk 0.0
+PASS gate1:en_001: Abdeckung 1.00 (Untergrenze 0.8), Mutanten ok
+PASS gate2:en_001: Replay a4e21041e897…, STALE P=R=1.0
+PASS gate3:en_001: F1 0.00->0.14 (+0.14), Pk 0.0
+PASS mutants:outspan_speaker_labels: Sprecherlabel-Tausch: Anker unberuehrt (de_001, en_001)
+PASS harness:alpha: alpha=0.6429
+Exit: 0 (9 Zeilen PASS)
+
+--- A4 ---
+Befehl: $V/bin/python -B $R/eval/spec_freeze.py
+Ausgabe:
+OK: prereg.json stimmt (Schwellen, 3 Hashes, Spec-Hash)
+Exit: 0
+
+--- A5 ---
+Befehl: OHPIPE_SPACE_MODE=fixture $V/bin/python -B -m unittest discover -s $R/app -t $R/app -p 'test_*.py'
+Ausgabe:
+.................
+Ran 17 tests in 1.934s
+OK
+Exit: 0 (17 Tests, darunter PrecomputedHashTest mit 4 Faellen, CheckPrecomputedRootTest mit 2 Faellen, FixtureModeTest mit 1 Fall)
+
+--- A6 ---
+Befehl: $V/bin/python -B $R/app/check_precomputed.py
+Ausgabe:
+precomputed ok: 2 Dateien, Hash gespeichert und ausgeliefert gültig (de_001, en_001), keine Review-Felder
+Exit: 0
+
+--- A7 ---
+Außerhalb der Bau-Sandbox von der Regie ausgeführt, Ergebnis im Auftragsblatt.
+
+--- A8 ---
+Außerhalb der Bau-Sandbox von der Regie ausgeführt, Ergebnis im Auftragsblatt.
+
+--- A9 ---
+Außerhalb der Bau-Sandbox von der Regie ausgeführt, Ergebnis im Auftragsblatt.
+
+--- A10 ---
+Befehl: Kopie von app/precomputed/ in ein Temp-Verzeichnis, in de_001.json einen Claim-Text aendern, dann $V/bin/python -B $R/app/check_precomputed.py --root <tmp>
+Ausgabe:
+precomputed FAIL: de_001.json gespeicherter Hash stimmt nicht
+Exit: 1
+
+--- A11 ---
+Befehl: uv --no-config --no-cache pip compile requirements.txt --python-platform x86_64-unknown-linux-gnu --python-version 3.12.12 --default-index https://pypi.org/simple
+Ausgabe (Auszug): COMPILE_EXIT=0, 87 Pakete, darunter torch==2.15.0, gradio==6.31.0, spaces==0.51.3, transformers==5.22.2, accelerate==1.15.0. Vollstaendige Liste in docs/checks/s1_uv-linux-3.12.12_2026-11-20.txt.
+Exit: 0
+
+--- A12 ---
+Befehl: git -C $R status --porcelain --untracked-files=all; git -C $R diff --stat d5bca36
+Ausgabe:
+M .github/workflows/tests.yml
+M README.md
+M app/app.py
+M app/check_precomputed.py
+M app/draft.py
+M app/test_draft.py
+M eval/space_check.sh
+?? .github/workflows/deploy-check.yml
+?? app/test_fixture_mode.py
+?? app/test_precomputed.py
+?? docs/checks/s1_lokal_2026-11-20.txt
+?? docs/checks/s1_uv-linux-3.12.12_2026-11-20.txt
+7 files changed, 388 insertions(+), 93 deletions(-)
+Wertung: M nur bei den sieben aenderbaren Dateien, ?? nur bei den fuenf
+neuen Dateien, kein D, keine Zeile unter fixtures/, app/precomputed/
+oder vorhandenen Dateien in docs/.
+Exit: 0
+
+--- A13 ---
+Befehl: grep -n -E 'unittest|check_precomputed|space_check' $R/.github/workflows/tests.yml
+Ausgabe:
+22:      - run: OHPIPE_SPACE_MODE=fixture python -B -m unittest discover -s app -t app -p 'test_*.py'
+23:      - run: python -B app/check_precomputed.py
+24:      - run: bash eval/space_check.sh
+Exit: 0 (je ein Schritt fuer Unit-Suite, Precomputed-Pruefung und space_check)
+
+--- A14 ---
+Befehl: grep -n -E '—|–' $R/README.md $R/app/app.py
+Ausgabe: (keine)
+Exit: 1 (nichts gefunden)
+
+--- A15 ---
+Befehl: grep -c -E 'Qwen2\.5-0\.5B-Instruct|Qwen2\.5-7B-Instruct|IMM-Core|Entwurfs-Hash' README.md; grep -n -E 'Anker Hash|Fixture Modus|UTC Tag|Dev Läufer|IMM Core|Entwurfs Hash' README.md; grep -n -E '/Users/|/var/folders/' docs/checks/s1_lokal_2026-11-20.txt docs/checks/s1_uv-linux-3.12.12_2026-11-20.txt
+Ausgabe:
+4
+Exit: 1 (erste Zahl 4, danach keine Ausgabe)
