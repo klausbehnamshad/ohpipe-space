@@ -1,8 +1,8 @@
-# ohpipe-space, Pins geprueft auf PyPI am 2026-11-07; torch 2.13.0 fuer ZeroGPU am 2026-11-20.
+# ohpipe-space, Pins geprueft auf PyPI am 2026-11-07; torch 2.13.0 und spaces 0.52.1 fuer ZeroGPU am 2026-11-20.
 gradio==6.31.0
 gradio_client==2.7.2
 itsdangerous==2.2.0
-spaces==0.51.3
+spaces==0.52.1
 torch==2.13.0
 transformers==5.22.2
 accelerate==1.15.0
