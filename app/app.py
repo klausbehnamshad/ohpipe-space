@@ -32,8 +32,11 @@ from mutations import (fmt_variants, outside_swap_greeting,
 from run_gates import anchored
 
 LEIT = "Gilt für synthetische Fixtures, nichts über echte Interviews."
-PRUEF = ("Prüfbefehl: `bash eval/space_check.sh` — gespeicherte Ausgabe: "
-         "`docs/checks/space_check_<datum>.txt`")
+PRUEF = ("Prüfbefehl: `bash eval/space_check.sh`. Gespeicherte Ausgaben: "
+         "`docs/checks/`.")
+FIXTUR_HINWEIS = ("Fixture-Modus: vorberechnete Entwürfe, keine Anmeldung, "
+                  "kein Tageslimit.")
+MODE = resolve_mode()
 MUTANT_ROWS = ("format_nfd", "format_crlf", "format_bom", "inspan_negation",
                "outspan_greeting", "outspan_speaker_labels",
                "degenerate_junk")
@@ -55,25 +58,27 @@ def _request_parts(request) -> tuple:
 def entwurf(fixture_id: str, request: gr.Request,
             profile: gr.OAuthProfile | None = None):
     username = getattr(profile, "username", None) if profile else None
-    sess, ip = _request_parts(request)
-    identity, authed = identity_of(sess, ip, username)
-    ok, used, limit = check_and_consume(identity, authed)
-    mode = resolve_mode()
     hinweis = ""
-    if mode == "zerogpu":
-        if not ok:
-            bundle = draft(fixture_id, mode="fixture")
-            hinweis = (f"Tageslimit erreicht ({used}/{limit} je UTC-Tag), "
-                       "Fixture-Modus")
-        else:
-            try:
-                bundle = draft(fixture_id, mode="zerogpu")
-            except Exception as exc:
-                bundle = draft(fixture_id, mode="fixture")
-                hinweis = (f"GPU-Fehler ({type(exc).__name__}), "
-                           "Fixture-Modus")
+    if MODE == "fixture":
+        bundle = draft(fixture_id, mode="fixture")
     else:
-        bundle = draft(fixture_id, mode=mode)
+        sess, ip = _request_parts(request)
+        identity, authed = identity_of(sess, ip, username)
+        ok, used, limit = check_and_consume(identity, authed)
+        if MODE == "zerogpu":
+            if not ok:
+                bundle = draft(fixture_id, mode="fixture")
+                hinweis = (f"Tageslimit erreicht ({used}/{limit} je UTC-Tag), "
+                           "Fixture-Modus")
+            else:
+                try:
+                    bundle = draft(fixture_id, mode="zerogpu")
+                except Exception as exc:
+                    bundle = draft(fixture_id, mode="fixture")
+                    hinweis = (f"GPU-Fehler ({type(exc).__name__}), "
+                               "Fixture-Modus")
+        else:
+            bundle = draft(fixture_id, mode=MODE)
     rows = [[c["text"], c["kind"], c["status"],
              c["anchor_hash"] or "-", (c["quote"] or "")[:80] or "-"]
             for c in bundle["claims"]]
@@ -167,12 +172,16 @@ def replay_demo():
 
 
 with gr.Blocks(title="ohpipe-space: drei Gates") as demo:
-    gr.Markdown("# ohpipe-space: drei Gates\n\n" + LEIT)
-    if os.environ.get("SPACE_ID"):
-        gr.LoginButton()
+    if MODE == "fixture":
+        gr.Markdown("# ohpipe-space: drei Gates\n\n" + LEIT)
+        gr.Markdown(FIXTUR_HINWEIS)
     else:
-        gr.Markdown("Anmeldung nur auf dem Space (HF-OAuth). "
-                    "Hier gilt die anonyme Grenze.")
+        gr.Markdown("# ohpipe-space: drei Gates\n\n" + LEIT)
+        if os.environ.get("SPACE_ID"):
+            gr.LoginButton()
+        else:
+            gr.Markdown("Anmeldung nur auf dem Space (HF-OAuth). "
+                        "Hier gilt die anonyme Grenze.")
     with gr.Tab("Entwurf"):
         gr.Markdown(LEIT)
         fixture_dd = gr.Dropdown(choices=list(FIXTURE_IDS), value="de_001",
